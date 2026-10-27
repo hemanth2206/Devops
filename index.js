@@ -24,6 +24,16 @@ app.post("/items", (req, res) => {
     res.status(201).json(newItem);
 });
 
+app.put("/items/:id", (req, res) => {
+    const item = items.find(i => i.id == req.params.id);
+if (item) {
+    item.name = req.body.name;
+    res.json(item);
+} else {
+    res.status(404).json({ message: "Item not found" });
+}
+});
+
 // UPDATE an item
 app.patch("/items/:id", (req, res) => {
     const item = items.find(i => i.id == req.params.id);
@@ -49,7 +59,7 @@ app.delete("/items/:id", (req, res) => {
 });
 
 // Start the server
-const PORT = 5000;
+const PORT = 3000;
 
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
